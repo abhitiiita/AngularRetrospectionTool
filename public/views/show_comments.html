@@ -1,0 +1,29 @@
+<section class="summaryView-section">
+
+	<div class="summaryView-pos">
+		<h1 class="summaryView-pos-h1">Positives</h1>
+	<ul id="summaryView-pos-ul">
+		<div ng-repeat="comment in comments">
+			<li ng-repeat="pos in comment.positives track by $index" style="position:relative">
+				<label class="summary-label">{{pos}}</label>
+				<button class="destroy" ng-click="removeCommentPositives(comment, pos)" ng-show="isOwner">X</button>
+			</li>
+		</div>
+	</ul>
+	</div>
+
+	<div class="summaryView-neg">
+		<h1 class="summaryView-neg-h1">Negatives</h1>
+	<ul id="summaryView-neg-ul">
+		<div ng-repeat="comment in comments">
+			<li ng-repeat="neg in comment.negatives track by $index" style="position:relative">
+				<label class="summary-label">{{neg}}</label>
+				<button class="destroy" ng-click="removeCommentNegatives(comment, neg)" ng-show="isOwner">X</button>
+			</li>
+		</div>
+	</ul>
+</div>
+</section>
+
+
+

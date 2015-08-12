@@ -1,0 +1,47 @@
+<section ng-controller="Comments">
+	<div class="alert alert-danger" role="alert" ng-show="isError">{{errorMessage}}</div>
+	<div class="row">
+
+		<div id="todoapp" class="col-md-5">
+			<header id="header">
+				<h1 id="positive-h1">Positive</h1>
+				<form id="todo-form" style="margin-bottom: 0;" ng-submit="addToPosList()">
+					<input id="new-todo" placeholder="Positive (press enter)" ng-model="newPosComment" autofocus autocomplete="off"></input>
+				</form>
+			</header>
+			<section id="main" ng-show="listPosComments.length" ng-cloak>
+			<ul id="todo-list">
+				<li ng-repeat="pos in listPosComments track by $index">
+					<div class="view">
+						<label style="font-weight: 200;">{{pos}}</label>
+						<button class="destroy" ng-click="removeFromPos(pos)"></button>
+					</div>
+				</li>
+			</ul>
+			</section>
+		</div>
+
+		<div id="todoapp" class="col-md-5" style="margin-left:10%!important">
+			<header id="header">
+				<h1 id="negative-h1">Negatives</h1>
+				<form id="todo-form" style="margin-bottom: 0;" ng-submit="addToNegList()">
+					<input id="new-todo" placeholder="Negative (press enter)" ng-model="newNegComment" autofocus autocomplete="off"></input>
+				</form>
+			</header>
+
+			<ul id="todo-list">
+				<li ng-repeat="neg in listNegComments track by $index">
+					<div class="view">
+						<label style="font-weight: 200;">{{neg}}</label>
+						<button class="destroy" ng-click="removeFromNeg(neg)"></button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-5">
+			<button type="button" class="btn btn-default" ng-click="submitComments()">Submit Comments</button>
+		</div>
+	</div>
+</section>

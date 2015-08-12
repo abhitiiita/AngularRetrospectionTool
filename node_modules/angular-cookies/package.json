@@ -1,0 +1,55 @@
+{
+  "name": "angular-cookies",
+  "version": "1.4.3",
+  "description": "AngularJS module for cookies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angular/angular.js.git"
+  },
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "cookies",
+    "client-side"
+  ],
+  "author": {
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "homepage": "http://angularjs.org",
+  "gitHead": "1ef7a87fc52ed419322aefe14890bdb24e717fc9",
+  "_id": "angular-cookies@1.4.3",
+  "_shasum": "ac23b16f50e05b2a995deba06836496a2b811a3c",
+  "_from": "angular-cookies@*",
+  "_npmVersion": "2.0.2",
+  "_nodeVersion": "0.10.26",
+  "_npmUser": {
+    "name": "angularcore",
+    "email": "angular-core+npm@google.com"
+  },
+  "maintainers": [
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "dist": {
+    "shasum": "ac23b16f50e05b2a995deba06836496a2b811a3c",
+    "tarball": "http://registry.npmjs.org/angular-cookies/-/angular-cookies-1.4.3.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/angular-cookies/-/angular-cookies-1.4.3.tgz"
+}

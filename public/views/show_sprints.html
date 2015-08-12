@@ -1,0 +1,16 @@
+<section>
+	<div class="row">
+		<div class="col-md-3" ng-repeat="sprint in sprintData" ng-if="sprint.title">
+			<div class="thumbnail sprint-view-thumbnail">
+				<h3 class="sprints-view-h1">{{sprint.title}}</h3>
+					<div class="row">
+						<div class="col-md-12">
+							<a href="/#/sprints/{{sprint._id}}" class="btn btn-primary sprint-view-a" role="button">Action Items</a>
+						</div>
+						<div class="col-md-12">
+							<a href="/#/sprints/{{sprint._id}}" class="btn btn-default sprint-view-a" role="button" >Complete Details</a>
+						</div>
+					</div>
+			</div>
+		</div>
+</section>

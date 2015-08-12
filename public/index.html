@@ -1,0 +1,44 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	 <title>RetrospectionTool</title>
+	 <link rel="stylesheet" href="/todomvc-common/base.css">
+	 <link rel="stylesheet" href="/todomvc-app-css/index.css">
+	 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
+	 <link rel="stylesheet" href="/assets/css/animation.css">
+	 <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body  ng-app="Retrospection">
+	<div ng-include="'/views/header.html'">
+		
+	</div>
+	
+	<div id="content-views">
+		<div ui-view ng-animate="'animate'" style="padding-top: 99px;"></div>
+	</div>
+	<script src="/angular/angular.js"></script>
+	<script src="/angular-ui-router/build/angular-ui-router.js"></script>
+	<script src="/angular-socket-io/socket.min.js"></script>
+	<script src="/angular-animate/angular-animate.min.js"></script>
+
+	<!-- You will not able able to find socket.io.js file but it automatically included from this path
+	Helpful link : http://stackoverflow.com/questions/14219791/node-js-app-cant-find-socket-io -->
+	<script src="/socket.io/socket.io.js"></script>
+
+	<script src="app.js"></script>
+	<script src="services/comments.js"></script>
+	<script src="services/sprint.js"></script>
+	<script src="services/socket.js"></script>
+	<script src="services/actionItems.js"></script>
+	<script src="services/authentication.js"></script>
+	<script src="routes/routes.js"></script>
+	<script src="controllers/comments.js"></script>
+	<script src="controllers/sprint.js"></script>
+	<script src="controllers/summary.js"></script>
+	<script src="controllers/actionItems.js"></script>
+	<script src="controllers/authentication.js"></script>
+
+
+
+</body>
+</html>

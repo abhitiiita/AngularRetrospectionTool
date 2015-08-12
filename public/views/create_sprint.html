@@ -1,0 +1,12 @@
+<section>
+	<div class="alert alert-danger" role="alert" ng-show="isError">{{errorMessage}}</div>
+	<div id="todoapp">
+		<header id="header">
+			<h1>Create a new Sprint</h1>
+			<form id="todo-form" ng-submit="createSprint()">
+				<input id="new-todo" placeholder="New Sprint" ng-model="sprint.title" autofocus autocomplete="off"></input>
+			</form>
+		</header>
+	</div>
+</section> 
+
