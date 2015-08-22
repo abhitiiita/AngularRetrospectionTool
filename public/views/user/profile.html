@@ -1,0 +1,39 @@
+<section>
+	<div class="row">
+
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+			<label class="grey-title">Latest Sprint</label>
+			<div class="thumbnail sprint-view-thumbnail">
+				<h3 class="sprints-view-h1">{{latestSprint.title}}</h3>
+					<div class="row">
+						<div class="col-md-12">
+							<a href="/#/{{latestSprint._id}}/comments" class="btn btn-primary sprint-view-a" role="button">Add Comments</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<a href="/#/sprints/{{latestSprint._id}}" class="btn btn-primary sprint-view-a" role="button">View Summary</a>
+						</div>
+					</div>
+			</div>
+		</div>
+
+
+		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pull-right">
+			<label class="grey-title">Action Items For You</label>
+			<div ng-show="actionItemsList.length">
+				<div ng-repeat="actionItem in actionItemsList">
+					<div class="thumbnail sprint-view-thumbnail" ng-class="{ 'action-item-complete':actionItem.status }">
+						<label class="summary-label" style="padding: 10px; margin-bottom:0px">{{actionItem.title}}</label>	
+						<button type="button" class="btn btn-default menu-item pull-right" aria-label="Left Align" ng-click="updateActionItems(actionItem)">Done
+            			<!--	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> -->
+          				</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	
+</section>

@@ -35,9 +35,17 @@ angular.module('Retrospection').controller('ActionItem',['$scope','$stateParams'
 				$scope.actionItemsList = data;
 			});
 		});
+
 		$scope.removeActionItem = function(actionItem) {
 			//$scope.actionItemsList.splice($scope.actionItemsList.indexOf(comment),1);
 			ActionItemService.deleteActionItem(actionItem).success(function(data) {
+				return;
+			});
+		};
+
+		$scope.updateActionItems = function(actionItem) {
+			actionItem.status = !actionItem.status;
+			ActionItemService.updateActionItem(actionItem).success(function(data) {
 				return;
 			});
 		};

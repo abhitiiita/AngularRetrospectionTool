@@ -16,10 +16,7 @@ angular.module('Retrospection').factory('CommentsService', function($http){
 
 	commentsFactory.updateRetroCommentsBatch = function(commentsArray) {
 		var x;
-	//	console.log(comments);
 		for(x in commentsArray){
-			//console.log(x);
-			//console.log(comments[x]);
 			$http.put('/comments/'+commentsArray[x]._id, commentsArray[x]);
 		}
 		return;

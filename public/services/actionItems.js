@@ -15,7 +15,11 @@ angular.module('Retrospection').factory('ActionItemService', function($http) {
 
 	actionItemFactory.deleteActionItem = function(actionItem) {
 		return $http.delete('/actions/'+actionItem._id);
-	}
+	};
+
+	actionItemFactory.updateActionItem = function(actionItem) {
+		return $http.put('/actions/'+actionItem._id, actionItem);
+	};
 
 	return actionItemFactory;
 });

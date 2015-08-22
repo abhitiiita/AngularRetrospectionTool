@@ -10,6 +10,10 @@ var CommentSchema = new Schema({
 	sprintId : {
 		type: Schema.ObjectId,
 		ref: 'Sprint'
+	},
+	owner : {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 });
 

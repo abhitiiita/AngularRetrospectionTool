@@ -1,6 +1,7 @@
 'use strict';
 
 var Action = require('../models/actions');
+var _ = require('lodash');
 
 module.exports.create = function(req, res) {
 	var action = new Action();
@@ -33,6 +34,32 @@ module.exports.delete = function(req, res) {
 		}
 	});
 };
+
+module.exports.update = function(req, res) {
+	var action = req.action;
+	action = _.extend(action, req.body);
+	if(action) {
+		action.save(function(err) {
+			if(err) {
+				return res.status(400).send({
+					message: 'Unable to update comments try again'
+				});
+			} else {
+				res.json(action);
+			}
+		});
+	}
+};
+
+module.exports.actionByID = function(req, res, next) {
+	Action.findById(req.params.actionId).exec(function(err, action) {
+		if(err) return next(err);
+		if(!action) return next(new Error('Failed to load action'));
+		req.action = action;
+		next();
+	});
+};
+
 /*
 module.exports.getActionsByTeam = function(req, res) {
 	Action.find({team:req.params.teamName}).exec(function(err, actions) {
@@ -45,7 +72,8 @@ module.exports.getActionsByTeam = function(req, res) {
 };
 */
 module.exports.getActionsByUser = function(req, res) {
-	Action.find({owner:req.params.userId}).exec(function(err, actions) {
+	console.log(req.params.userEmail);
+	Action.find({owner:req.params.userEmail}).exec(function(err, actions) {
 		if(err) {
 			return res.status(400).send({message:'Unable to fetch data try again'});
 		} else {

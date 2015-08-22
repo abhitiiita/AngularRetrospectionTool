@@ -1,9 +1,10 @@
 'use strict';
-angular.module('Retrospection').controller('Authentication',['$scope','AuthenticationService', '$state','$cookies',
-	function($scope, AuthenticationService, $state, $cookies) {
+angular.module('Retrospection').controller('Authentication',['$scope','AuthenticationService', '$state','$cookies', 'teams',
+	function($scope, AuthenticationService, $state, $cookies, teams) {
 		$scope.user = {};
 		$scope.authentication = AuthenticationService;
-
+		$scope.teams = teams.data;
+		
 		if ($scope.authentication.user) $state.go('profile');
 
 		$scope.login = function(isValid) {
@@ -31,7 +32,5 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 				});
 			}
 		};
-
-
 	}
 ]);

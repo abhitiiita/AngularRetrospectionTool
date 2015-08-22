@@ -1,8 +1,8 @@
-<section>
+<section style="text-align:center">
 	<div class="alert alert-danger" role="alert" ng-show="isError">{{errorMessage}}</div>
-	<div id="todoapp">
+	<label class="grey-title" style="font-size:75px">Create a new Sprint</label>
+	<div id="todoapp" style="margin:0px">
 		<header id="header">
-			<h1>Create a new Sprint</h1>
 			<form id="todo-form" ng-submit="createSprint()">
 				<input id="new-todo" placeholder="New Sprint" ng-model="sprint.title" autofocus autocomplete="off"></input>
 			</form>

@@ -1,5 +1,5 @@
 .grey-title {
-	font-size: 60px;
+	font-size: 52px;
     font-weight: 100;
     text-align: center;
     color: rgba(56, 49, 49, 0.51);
@@ -158,4 +158,24 @@
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom:10px;
+}
+
+.action-item-complete {
+	background-color: rgba(117, 222, 100, 0.43)!important;
+}
+
+.action-item-incomplete {
+	background-color: rgb(255,255,255);
+}
+
+.summaryUser {
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+	margin-right: 7px;
+    margin-bottom: 10px;
+    padding:5px;
+    background-color: #E4E4E8;
+}
+
+.summaryUser-active-label {
+	background-color: #7DBCF1!important;
 }

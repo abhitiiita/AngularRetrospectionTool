@@ -1,0 +1,38 @@
+<section>
+<div class="col-lg-4 col-md-4 col-sm-10 col-xs-12 col-lg-offset-4 col-md-offset-4 col-sm-offset-1 summaryView-section">
+
+    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+    <div class="alert alert-danger" role="alert" ng-show="errorMessage.length">{{errorMessage}}</div>
+    <!-- SIGNUP FORM -->
+    <form name="signupForm" ng-submit="signup(signupForm.$valid)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.email.$invalid && !signupForm.email.$pristine && signupForm.email.$touched }">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" ng-model="user.email" placeholder="loginid@amazon.com" required ng-pattern="/^([a-zA-Z0-9])+@amazon.com$/">
+            <p ng-show="signupForm.email.$error.pattern && !signupForm.email.$pristine && signupForm.email.$touched" class="help-block">Only amazon domains in the format 'loginid@amazon.com'</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.password.$invalid && !signupForm.password.$pristine && signupForm.password.$touched }">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" ng-model="user.password" required>
+            <p ng-show="signupForm.password.$invalid && !signupForm.password.$pristine && signupForm.password.$touched" class="help-block">You must enter a password </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : signupForm.team.$invalid && !signupForm.team.$pristine && signupForm.team.$touched }">
+            <label>Team</label>
+            <select class="form-control" name="team" ng-model="user.team" ng-options="team.teamName for team in teams" required>
+                <option value="">Please select your team</option>
+            </select>
+            <p ng-show="signupForm.team.$invalid && !signupForm.team.$pristine && signupForm.team.$touched" class="help-block">You must select your team </p>
+
+        </div>
+        <button type="submit" class="btn btn-warning btn-lg" ng-disabled="signupForm.$invalid">Signup</button>
+    </form>
+
+    <hr>
+
+    <p>Already have an account? <a href="/#/signin">Login</a></p>
+    <p>Or go <a href="/#/">home</a>.</p>
+</div>
+
+</section>

@@ -20,7 +20,8 @@ exports.create = function(req, res) {
 	var comments = new Comments();
 	comments.positives = req.body.positives;
 	comments.negatives = req.body.negatives;
-	comments.sprintId = req.body.sprintId;
+	comments.sprintId  = req.body.sprintId;
+	comments.owner     = req.body.owner;
 
 	comments.save(function(err) {
 		if (err) {
@@ -58,10 +59,9 @@ exports.update = function(req, res) {
 };
 
 exports.commentByID = function(req, res, next){
-	console.log('I am here');
 	Comments.findById(req.params.commentId).exec(function(err, comment) {
 		if(err) return next(err);
-		if(!comment) return next(new Error('Failed to load comment' +id));
+		if(!comment) return next(new Error('Failed to load comment'));
 		req.comment = comment;
 		next();
 	});

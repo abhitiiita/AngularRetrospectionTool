@@ -49,6 +49,7 @@ angular.module('Retrospection').controller('Comments',['$scope', '$stateParams',
 			sprintComments.positives = $scope.listPosComments;
 			sprintComments.negatives = $scope.listNegComments;
 			sprintComments.sprintId  = $stateParams.sprintId;
+			sprintComments.owner 	 = $scope.authentication.user;
 
 			CommentsService.submitComments(sprintComments).success(function(data){
 				$state.go('summaryView', {sprintId: $stateParams.sprintId});

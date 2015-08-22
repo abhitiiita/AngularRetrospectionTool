@@ -9,7 +9,8 @@ var express = require('express'),
 	flash = require('connect-flash'),
 	session = require('express-session'),
 	socketio = require('socket.io'),
-	cookieParser = require('cookie-parser');
+	cookieParser = require('cookie-parser'),
+	nodemailer = require('nodemailer');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,13 +46,16 @@ app.use(passport.initialize());
 app.use(passport.session()); //persistent login sessions
 app.use(flash());
 
+//setup nodemailer
+var transporter = require('./config/nodemailer-transporter')(nodemailer);
 
 //###################################################################
 //routes
 require('./app/routes/comments')(app);
 require('./app/routes/sprint')(app);
 require('./app/routes/actions')(app);
-require('./app/routes/user')(app, passport);
+require('./app/routes/team')(app);
+require('./app/routes/user')(app, passport, transporter);
 
 //###################################################################
 //Mongodb connection

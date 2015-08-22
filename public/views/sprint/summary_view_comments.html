@@ -1,5 +1,13 @@
-<section class="summaryView-section">
 
+	<div style="margin-bottom: 24px;">
+		<span ng-repeat="member in teamMembers">
+			<label class="summaryUser" 
+			ng-class="{ 'summaryUser-active-label':member.added }">{{member.email}}</label>
+		</span>
+	</div>
+
+
+<section class="summaryView-section">
 	<div class="summaryView-pos">
 		<h1 class="summaryView-pos-h1">Positives</h1>
 	<ul id="summaryView-pos-ul">

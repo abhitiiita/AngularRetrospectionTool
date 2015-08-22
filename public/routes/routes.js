@@ -18,18 +18,53 @@ angular.module('Retrospection').config(['$stateProvider',
 				}],
 				actionItemsList : ['isLoggedIn', 'ActionItemService', function(isLoggedIn, ActionItemService) {
 						return ActionItemService.getActionItemsByUser(isLoggedIn.email);
+				}],
+				teamMembers : ['AuthenticationService','isLoggedIn',
+					function(AuthenticationService, isLoggedIn) {
+						return AuthenticationService.getSprintTeamMembers(isLoggedIn.team);
 				}]
 			},
-			templateUrl : 'views/profile.html',
+			templateUrl : 'views/user/profile.html',
 			controller : 'Profile'
 		}).
 		state('signup', {
 			url:'/signup',
-			templateUrl: 'views/signup.html'
+			resolve: {
+				teams : ['AuthenticationService', function(AuthenticationService) {
+					return AuthenticationService.getTeamsList();
+				}]
+			},
+			templateUrl: 'views/user/signup.html',
+			controller : 'Authentication'
 		}).
 		state('signin', {
 			url:'/signin',
-			templateUrl: 'views/signin.html'
+			resolve: {
+				teams : ['AuthenticationService', function(AuthenticationService) {
+					return AuthenticationService.getTeamsList();
+				}]
+			},
+			templateUrl: 'views/user/signin.html',
+			controller : 'Authentication'
+		}).
+		state('resetPasswordRequest', {
+			url:'/resetpassword',
+			resolve: {
+				tokenValidation: function(){return null;}
+			},
+			templateUrl : 'views/user/password_reset.html',
+			controller: 'PasswordHandler'
+		}).
+		state('resetPasswordConfirm', {
+			url:'/resetpassword/:resetToken',
+			resolve : {
+				tokenValidation : ['AuthenticationService', '$stateParams', 
+					function(AuthenticationService, $stateParams) {
+					return AuthenticationService.confirmResetRequest($stateParams.resetToken);
+				}]
+			},
+			templateUrl: 'views/user/password_update.html',
+			controller: 'PasswordHandler'
 		}).
 		state('createSprint', {
 			url: '/create',
@@ -38,7 +73,7 @@ angular.module('Retrospection').config(['$stateProvider',
 								return AuthenticationService.isLoggedIn(); }],
 				sprintData: function() { return [];}
 			},
-			templateUrl: 'views/create_sprint.html',
+			templateUrl: 'views/sprint/create_sprint.html',
 			controller: 'Sprint'
 		}).
 		state('addComments', {
@@ -47,7 +82,7 @@ angular.module('Retrospection').config(['$stateProvider',
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
 								return AuthenticationService.isLoggedIn(); }]
 			},
-			templateUrl: 'views/add_comments.html'
+			templateUrl: 'views/sprint/add_comments.html'
 		}).
 		state('sprintView',{
 			url: '/sprints',
@@ -59,7 +94,7 @@ angular.module('Retrospection').config(['$stateProvider',
 						return SprintService.loadSprintsData(isLoggedIn.team);
 				}]
 			},
-			templateUrl: 'views/show_sprints.html',
+			templateUrl: 'views/sprint/show_sprints.html',
 			controller: 'Sprint'
 		}).
 		state('summaryView',{
@@ -87,13 +122,13 @@ angular.module('Retrospection').config(['$stateProvider',
 					}]
 			},
 			views : {
-				'': {templateUrl: 'views/summary_view.html'},
+				'': {templateUrl: 'views/sprint/summary_view.html'},
 				'comments@summaryView' : {
-					templateUrl : 'views/show_comments.html',
+					templateUrl : 'views/sprint/summary_view_comments.html',
 					controller : 'Summary'
 				},
 				'actionItems@summaryView' : {
-					templateUrl : 'views/action_items.html',
+					templateUrl : 'views/sprint/summary_view_action_items.html',
 					controller : 'ActionItem'
 				}
 			}

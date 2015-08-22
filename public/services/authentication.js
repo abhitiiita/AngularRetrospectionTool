@@ -46,6 +46,22 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 			return $http.get('/users/'+team);
 		};
 
+		authenticationFactory.submitResetRequest = function(userEmail) {
+			return $http.get('/resetpassword/user/'+userEmail);
+		};
+
+		authenticationFactory.confirmResetRequest = function(resetToken) {
+			return $http.get('/resetpassword/'+resetToken);
+		};
+
+		authenticationFactory.updatePassword = function(password, userId) {
+			return $http.put('/users/'+userId, password);
+		};
+
+		authenticationFactory.getTeamsList = function() {
+			return $http.get('/teams');
+		};
+
 		return authenticationFactory;
 	}
 ]);

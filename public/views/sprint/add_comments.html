@@ -2,9 +2,9 @@
 	<div class="alert alert-danger" role="alert" ng-show="isError">{{errorMessage}}</div>
 	<div class="row">
 
-		<div id="todoapp" class="col-md-5">
+		<div id="todoapp" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 			<header id="header">
-				<h1 id="positive-h1">Positive</h1>
+				<h1 id="positive-h1">Positives</h1>
 				<form id="todo-form" style="margin-bottom: 0;" ng-submit="addToPosList()">
 					<input id="new-todo" placeholder="Positive (press enter)" ng-model="newPosComment" autofocus autocomplete="off"></input>
 				</form>
@@ -21,7 +21,7 @@
 			</section>
 		</div>
 
-		<div id="todoapp" class="col-md-5" style="margin-left:10%!important">
+		<div id="todoapp" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 pull-right" style="margin-left:10%!important">
 			<header id="header">
 				<h1 id="negative-h1">Negatives</h1>
 				<form id="todo-form" style="margin-bottom: 0;" ng-submit="addToNegList()">
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-offset-5">
+		<div class="col-lg-offset-5 col-md-offset-5 col-sm-offset-5 col-xs-offset-5">
 			<button type="button" class="btn btn-default" ng-click="submitComments()">Submit Comments</button>
 		</div>
 	</div>
