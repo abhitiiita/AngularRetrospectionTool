@@ -73,3 +73,12 @@ module.exports.updatePassword = function(req, res) {
 		})
 	});
 };
+
+module.exports.delete = function(req, res) {
+	User.remove({_id:req.params.userId}).exec(function(err, result) {
+		if(err) {
+			return res.status(400).send({message:'Unable to delete try again'});
+		}
+		res.json(result);
+	});
+};

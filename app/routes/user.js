@@ -5,9 +5,9 @@ var users = require('../controllers/user');
 module.exports = function(app, passport, transporter) {
 
 	//Home page with login links
-	app.get('/', function(req, res) {
+/*	app.get('/', function(req, res) {
 		res.render('index.ejs');
-	});
+	}); */
 
 	app.get('/resetpassword/user/:userEmail', function(req, res) {
 		users.resetPasswordPhase1(req, res, transporter)
@@ -15,16 +15,15 @@ module.exports = function(app, passport, transporter) {
 	app.get('/resetpassword/:resetToken', users.resetPasswordPhase2);
 	app.get('/users/:team', users.getUsersByTeam);
 
-	app.put('/users/:userId', users.updatePassword);
+	app.route('/users/:userId')
+		.put(users.updatePassword)
+		.delete(users.delete);
 
 	app.get('/isLoggedIn', function(req, res) {
-		console.log("isLoggedIn called");
 		if(req.isAuthenticated()) {
-			console.log(req.user);
-				res.json(req.user);
+				return res.json(req.user);
 		}
-		console.log("returning null");
-			res.json(null);
+		res.json(null);
 	});
 
 	//login page

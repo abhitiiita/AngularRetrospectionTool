@@ -132,6 +132,10 @@ angular.module('Retrospection').config(['$stateProvider',
 					controller : 'ActionItem'
 				}
 			}
+		}).
+		state('errorView', {
+			url: '/errorView',
+			templateUrl: 'views/error_view.html'
 		});
 	}
 

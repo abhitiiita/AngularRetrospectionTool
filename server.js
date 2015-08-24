@@ -25,9 +25,6 @@ var io = socketio.listen(server);
 app.set('socketio', io);
 app.set('server', server);
 
-app.set('view engine', 'ejs'); //set up ejs for templating
-
-
 //###################################################################
 //require for passport
 //For more info on sessions : https://github.com/expressjs/session#options
@@ -59,12 +56,14 @@ require('./app/routes/user')(app, passport, transporter);
 
 //###################################################################
 //Mongodb connection
-
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 
 app.use(express.static(__dirname +'/public'));
 app.use(express.static(__dirname +'/node_modules'));
+app.get('/', function(req, res) {
+	res.sendFile(path.join(__dirname+'/public/index.html'));
+});
 
 //app.listen(3000);
 app.get('server').listen(8081);

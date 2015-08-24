@@ -3,7 +3,6 @@
 var Sprint = require('../models/sprint');
 
 module.exports.createSprint = function(req, res) {
-
 	var sprint = new Sprint();
 	sprint.title = req.body.title;
 	sprint.team  = req.body.team;
