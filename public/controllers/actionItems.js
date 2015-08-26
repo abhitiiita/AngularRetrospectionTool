@@ -1,7 +1,7 @@
-'use strict';
 angular.module('Retrospection').controller('ActionItem',['$scope','$stateParams', 'AuthenticationService', 
 	'ActionItemService', 'Socket','sprintDetails','teamMembers', 'actionItemsList',
 	function($scope, $stateParams, AuthenticationService, ActionItemService, Socket, sprintDetails, teamMembers, actionItemsList) {
+		'use strict';
 		$scope.authentication = AuthenticationService;
 
 		$scope.actionItemsList = actionItemsList.data;

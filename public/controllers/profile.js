@@ -1,7 +1,7 @@
-'use strict';
 angular.module('Retrospection').controller('Profile', ['AuthenticationService', 'Socket', 'ActionItemService',
  	'sprintData', 'actionItemsList', '$scope', 'teamMembers',
 	function(AuthenticationService, Socket, ActionItemService, sprintData, actionItemsList, $scope, teamMembers) {
+		'use strict';
 
 		$scope.latestSprint = sprintData.data[0];
 		$scope.actionItemsList = actionItemsList.data;

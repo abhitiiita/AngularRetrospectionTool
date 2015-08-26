@@ -1,11 +1,11 @@
-'use strict';
 angular.module('Retrospection').controller('PasswordHandler', ['$scope', '$state', 'AuthenticationService', 'tokenValidation',
 	function($scope, $state, AuthenticationService, tokenValidation) {
+		'use strict';
+
 		$scope.resetRequestUserEmail = '';
 		$scope.resetRequestSuccessStatus = '';
 		$scope.resetRequestErrorStatus = '';
 		$scope.newPassword = {};
-	//	$scope.confirmPassword = '';
 		$scope.errorMessage = '';
 		$scope.isValidToken = tokenValidation ? tokenValidation.data.isValid : false;
 		$scope.userId = tokenValidation ? tokenValidation.data.userId : null;
@@ -16,7 +16,6 @@ angular.module('Retrospection').controller('PasswordHandler', ['$scope', '$state
 			if(isValid) {
 				AuthenticationService.submitResetRequest($scope.resetRequestUserEmail)
 				.success(function(response) {
-					console.log(response);
 					if(response.success) {
 						$scope.resetRequestSuccessStatus = 
 						'We’ve sent you an email '+$scope.resetRequestUserEmail +
@@ -40,6 +39,6 @@ angular.module('Retrospection').controller('PasswordHandler', ['$scope', '$state
 					}
 				});
 			}
-		}
+		};
 	}
 ]);

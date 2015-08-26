@@ -1,7 +1,8 @@
-'use strict';
 angular.module('Retrospection').controller('Comments',['$scope', '$stateParams', '$state',
 	'$location','CommentsService', 'AuthenticationService',
 	function($scope, $stateParams, $state, $location, CommentsService, AuthenticationService) {
+		'use strict';
+		
 		$scope.listPosComments = [];
 		$scope.listNegComments = [];
 		$scope.newPosComment = '';

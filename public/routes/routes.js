@@ -1,7 +1,6 @@
-'use strict';
-
 angular.module('Retrospection').config(['$stateProvider',
 	function($stateProvider) {
+		'use strict';
 		$stateProvider.
 		state('home', {
 			url:'/',

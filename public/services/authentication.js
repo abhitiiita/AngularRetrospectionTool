@@ -1,7 +1,7 @@
-'use strict';
-
 angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$http', 'SprintService', '$q', '$state',
 	function($cookies, $http, SprintService, $q, $state){
+		'use strict';
+
 		var authenticationFactory = {};
 	//	authenticationFactory.user = $cookies.getObject('user');
 		authenticationFactory.user = null;

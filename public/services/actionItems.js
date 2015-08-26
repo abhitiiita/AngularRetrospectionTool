@@ -1,5 +1,6 @@
-'use strict';
 angular.module('Retrospection').factory('ActionItemService', function($http) {
+	'use strict';
+	
 	var actionItemFactory = {};
 	actionItemFactory.saveActionItem = function(actionItem) {
 		return $http.post('/actions', actionItem);

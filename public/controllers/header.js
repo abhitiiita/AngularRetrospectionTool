@@ -1,5 +1,6 @@
 angular.module('Retrospection').controller('Header', ['$scope', 'AuthenticationService', '$cookies', '$state',
 	function($scope, AuthenticationService, $cookies, $state) {
+		'use strict';
 		$scope.authentication = AuthenticationService;
 
 		$scope.logout = function() {

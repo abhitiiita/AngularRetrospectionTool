@@ -1,7 +1,7 @@
-'use strict';
-
 angular.module('Retrospection').controller('Sprint',['$scope', '$state', 'SprintService', 'AuthenticationService', 'sprintData',
 	function($scope, $state, SprintService, AuthenticationService, sprintData){
+		'use strict';
+
 		$scope.authentication = AuthenticationService;
 		$scope.sprint = {};		
 		$scope.isError = false;

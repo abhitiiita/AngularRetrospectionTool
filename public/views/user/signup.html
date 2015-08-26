@@ -20,7 +20,7 @@
 
         <div class="form-group" ng-class="{ 'has-error' : signupForm.team.$invalid && !signupForm.team.$pristine && signupForm.team.$touched }">
             <label>Team</label>
-            <select class="form-control" name="team" ng-model="user.team" ng-options="team.teamName for team in teams" required>
+            <select class="form-control" name="team" ng-model="user.team" ng-options="team.teamName as team.teamName for team in teams" required>
                 <option value="">Please select your team</option>
             </select>
             <p ng-show="signupForm.team.$invalid && !signupForm.team.$pristine && signupForm.team.$touched" class="help-block">You must select your team </p>

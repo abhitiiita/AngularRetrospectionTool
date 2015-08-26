@@ -1,5 +1,5 @@
-'use strict';
 angular.module('Retrospection').factory('SprintService', function($http){
+	'use strict';
 	var sprintFactory = {};
 
 	sprintFactory.createSprint = function(sprint){
@@ -12,7 +12,7 @@ angular.module('Retrospection').factory('SprintService', function($http){
 
 	sprintFactory.getSprintDetail = function(sprintId) {
 		return $http.get('/sprint/'+sprintId);
-	}
+	};
 
 	return sprintFactory;
 });

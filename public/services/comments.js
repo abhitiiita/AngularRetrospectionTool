@@ -1,6 +1,6 @@
-'use strict';
-
 angular.module('Retrospection').factory('CommentsService', function($http){
+	'use strict';
+		
 	var commentsFactory = {};
 	commentsFactory.submitComments = function(sprintComments) {
 		return $http.post('/comments', sprintComments);

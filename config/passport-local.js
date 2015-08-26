@@ -40,7 +40,7 @@ module.exports = function(passport){
                     var newUser = new User();
                     newUser.email = email;
                     newUser.password = newUser.generateHash(password);
-
+                    newUser.team = req.body.team;
                     newUser.save(function(err){
                         if(err)
                             throw err;

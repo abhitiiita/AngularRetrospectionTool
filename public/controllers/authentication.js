@@ -1,7 +1,7 @@
-'use strict';
 angular.module('Retrospection').controller('Authentication',['$scope','AuthenticationService', 
 	'$state','$cookies', 'teams', '$rootScope',
 	function($scope, AuthenticationService, $state, $cookies, teams, $rootScope) {
+		'use strict';
 		$scope.user = {};
 		$scope.authentication = AuthenticationService;
 		$scope.teams = teams.data;

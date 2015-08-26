@@ -1,8 +1,8 @@
-'use strict';
 angular.module('Retrospection').controller('Summary',['$scope', '$state' ,'$stateParams','CommentsService',
 	'Socket','AuthenticationService', 'comments', 'sprintDetails','teamMembers', 'isLoggedIn',
 	function($scope, $state, $stateParams, CommentsService, Socket, AuthenticationService, comments, 
 		sprintDetails, teamMembers, isLoggedIn) {
+		'use strict';
 
 		$scope.teamMembers = teamMembers.data;
 		$scope.authentication = AuthenticationService;
@@ -20,7 +20,7 @@ angular.module('Retrospection').controller('Summary',['$scope', '$state' ,'$stat
 					}
 				}
 			}
-		};
+		}
 
 		addOwner();
 
@@ -45,6 +45,6 @@ angular.module('Retrospection').controller('Summary',['$scope', '$state' ,'$stat
 
 		$scope.approveComments = function(){
 			CommentsService.updateRetroCommentsBatch($scope.comments);
-		}
+		};
 	}
 ]);
