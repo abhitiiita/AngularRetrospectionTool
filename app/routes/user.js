@@ -12,19 +12,18 @@ module.exports = function(app, passport, transporter) {
 	app.get('/resetpassword/user/:userEmail', function(req, res) {
 		users.resetPasswordPhase1(req, res, transporter)
 	});
+
 	app.get('/resetpassword/:resetToken', users.resetPasswordPhase2);
-	app.get('/users/:team', users.getUsersByTeam);
+
+	app.get('/users/me', users.requiresLogin, function(req, res) {
+		res.json(req.user);
+	});
+
+	app.get('/users/:team', users.requiresLogin, users.getUsersByTeam);
 
 	app.route('/users/:userId')
-		.put(users.updatePassword)
-		.delete(users.delete);
-
-	app.get('/isLoggedIn', function(req, res) {
-		if(req.isAuthenticated()) {
-				return res.json(req.user);
-		}
-		res.json(null);
-	});
+		.put(users.requiresLogin, users.updatePassword)
+		.delete(users.requiresLogin, users.delete);
 
 	//login page
 	app.post('/auth/login', function(req, res, next) {
@@ -33,7 +32,7 @@ module.exports = function(app, passport, transporter) {
     		if (!user) return res.json({errorMsg: info, user: null});
     		req.logIn(user, function(err) {
       			if (err) return next(err);
-      			return res.json({errorMsg: info, user: req.user});
+      			return res.json({errorMsg: '', user: req.user, token: info});
     		});
   		})(req, res, next);
 	});
@@ -45,7 +44,7 @@ module.exports = function(app, passport, transporter) {
     		if (!user) return res.json({errorMsg: info, user: null});
     		req.logIn(user, function(err) {
       			if (err) return next(err);
-      			return res.json({errorMsg: info, user: req.user});
+      			return res.json({errorMsg: '', user: req.user, token:info});
     		});
   		})(req, res, next);
 	});
@@ -54,15 +53,4 @@ module.exports = function(app, passport, transporter) {
 		req.logout(); //this function is provided by passport
 		return res.json({success:true});
 	});
-
 };
-
-function isLoggedIn(req, res, next){
-	//if user is authenticated in the session, carry on
-	if (!req.isAuthenticated()) {
-		return res.status(401).send({
-			message: 'User is not logged in'
-		});
-	}
-	return next();
-}

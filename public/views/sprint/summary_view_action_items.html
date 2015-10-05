@@ -18,7 +18,7 @@
 		</header>
 			<ul id="todo-list">
 				<li ng-repeat="item in actionItemsList track by $index" ng-class="{ 'action-item-complete':item.status }">
-					<div class="row view">
+					<div class="container row view">
 						<label class="col-md-7" style="font-weight: 200;">{{item.title}}</label>
   						<label class="col-md-4" style="font-weight: 200;">{{item.owner}}</label>
 						<button ng-show="isOwner" class="destroy col-md-1" ng-click="removeActionItem(item)"></button>

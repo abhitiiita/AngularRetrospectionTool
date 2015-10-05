@@ -9,7 +9,6 @@ angular.module('Retrospection').controller('Profile', ['AuthenticationService', 
 		$scope.authentication = AuthenticationService;
 
 		Socket.on('actionItem.added', function(){
-			console.log("team is "+$scope.authentication.user.team);
 			ActionItemService.getActionItemsByUser($scope.authentication.user.email).success(function(data){
 				console.log("Data from ActionItemService"+data);
 				$scope.actionItemsList = data;

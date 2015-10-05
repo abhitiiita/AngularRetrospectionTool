@@ -10,10 +10,12 @@ var express = require('express'),
 	session = require('express-session'),
 	socketio = require('socket.io'),
 	cookieParser = require('cookie-parser'),
-	nodemailer = require('nodemailer');
+	nodemailer = require('nodemailer'),
+	jwt = require('jsonwebtoken');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+//app.use(morgan('dev'));
 
 //###################################################################
 //Attatch socket.io
@@ -24,6 +26,13 @@ var server = http.createServer(app);
 var io = socketio.listen(server);
 app.set('socketio', io);
 app.set('server', server);
+
+//###################################################################
+//Mongodb connection
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+app.set('tokenSecret', configDB.tokenSecret);
+
 
 //###################################################################
 //require for passport
@@ -38,7 +47,7 @@ app.use(session(
 )); //session secret (any random string)
 
 //passing passport obj to be configured
-require('./config/passport-local')(passport);
+require('./config/passport-local')(passport, app);
 app.use(passport.initialize());
 app.use(passport.session()); //persistent login sessions
 app.use(flash());
@@ -55,9 +64,6 @@ require('./app/routes/team')(app);
 require('./app/routes/user')(app, passport, transporter);
 
 //###################################################################
-//Mongodb connection
-var configDB = require('./config/database.js');
-mongoose.connect(configDB.url);
 
 app.use(express.static(__dirname +'/public'));
 app.use(express.static(__dirname +'/node_modules'));

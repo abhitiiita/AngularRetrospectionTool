@@ -1,6 +1,6 @@
 angular.module('Retrospection').controller('Authentication',['$scope','AuthenticationService', 
-	'$state','$cookies', 'teams', '$rootScope',
-	function($scope, AuthenticationService, $state, $cookies, teams, $rootScope) {
+	'$state', 'teams', '$rootScope', 'AuthTokenService',
+	function($scope, AuthenticationService, $state, teams, $rootScope, AuthTokenService) {
 		'use strict';
 		$scope.user = {};
 		$scope.authentication = AuthenticationService;
@@ -18,6 +18,7 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 				AuthenticationService.login($scope.user).success(function(response) {
 					if(response.user) {
 						$scope.authentication.user = response.user;
+						AuthTokenService.setToken(response.token);
 						$state.go('profile');
 					} else {
 						$scope.errorMessage = response.errorMsg;
@@ -31,6 +32,7 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 				AuthenticationService.signup($scope.user).success(function(response) {
 					if(response.user) {
 						$scope.authentication.user = response.user;
+						AuthTokenService.setToken(response.token);
 						$state.go('profile');
 					} else {
 						$scope.errorMessage = response.errorMsg;

@@ -1,14 +1,15 @@
 'use strict';
 
 var sprint = require('../controllers/sprint');
+var users = require('../controllers/user');
 
 module.exports = function(app) {
 	app.route('/sprint')
-		.post(sprint.createSprint);
+		.post(users.requiresLogin, sprint.createSprint);
 		
 	app.route('/sprint/team/:teamName')
-		.get(sprint.getSprintsByTeam);
+		.get(users.requiresLogin, sprint.getSprintsByTeam);
 
 	app.route('/sprint/:sprintId')
-		.get(sprint.readDetails);
+		.get(users.requiresLogin, sprint.readDetails);
 };

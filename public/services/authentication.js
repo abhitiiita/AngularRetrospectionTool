@@ -1,9 +1,8 @@
-angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$http', 'SprintService', '$q', '$state',
-	function($cookies, $http, SprintService, $q, $state){
+angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$http', 'SprintService', '$q',
+	'$state', 'AuthTokenService', function($cookies, $http, SprintService, $q, $state, AuthTokenService){
 		'use strict';
 
 		var authenticationFactory = {};
-	//	authenticationFactory.user = $cookies.getObject('user');
 		authenticationFactory.user = null;
 
 		authenticationFactory.isLoggedIn = function() {	
@@ -13,15 +12,22 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 				return defer.promise;
 			}
 			
-			$http.get('/isLoggedIn').success(function(user) {
-				authenticationFactory.user = user;
-				if(authenticationFactory.user) {
-					defer.resolve(authenticationFactory.user);
-				} else {
-					defer.reject(null);
-					$state.go('signin');
-				}
-			});
+			//check for token if token exist then fetch the user
+			if(!AuthTokenService.getToken()) {
+				defer.reject(null);
+				$state.go('signin');
+			} else {
+				//token exist but no user info, so fetch from server
+				$http.get('/users/me').success(function(user) {
+					authenticationFactory.user = user;
+					if(authenticationFactory.user) {
+						defer.resolve(authenticationFactory.user);
+					} else {
+						defer.reject(null);
+						$state.go('signin');
+					}
+				});
+			}
 			return defer.promise;
 		};
 

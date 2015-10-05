@@ -2,6 +2,8 @@
 
 var User = require('../models/user');
 var ResetToken = require('../models/resetToken');
+var jwt = require('jsonwebtoken');
+var config = require('../../config/database.js');
 
 module.exports.getUsersByTeam = function(req, res) {
 	User.find({team:req.params.team}).exec(function(err, users) {
@@ -38,10 +40,8 @@ module.exports.resetPasswordPhase1 = function(req, res, transporter) {
     				text: 'Please click on the link to reset your password. http://'+req.headers.host+'/#/resetpassword/'+resetToken.hashToken
 				}, function(error, response) {
 					if(error) {
-						console.log(error);
 						res.json({success:false, resetToken: '', errorMsg:error});
 					}
-					console.log(response);
 					res.json({success:true, resetToken:resetToken, errorMsg:''});
 				});
 				
@@ -80,5 +80,27 @@ module.exports.delete = function(req, res) {
 			return res.status(400).send({message:'Unable to delete try again'});
 		}
 		res.json(result);
+	});
+};
+
+module.exports.requiresLogin = function(req, res, next) {
+	var token = req.body.token || req.query.token || req.headers['x-access-token'];
+	if(!token) {
+		return res.status(401).send({
+			success:false,
+			message:'No token provided'
+		});
+	}
+
+	jwt.verify(token, config.tokenSecret, function(err, decoded) {
+		if(err) {
+			return res.status(401).send({
+				success: false, 
+				message: 'Failed to authenticate token'
+			});
+		} else {
+			req.user = decoded;
+			next();
+		}
 	});
 };

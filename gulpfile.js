@@ -31,6 +31,7 @@ gulp.task('watch', function() {
 	gulp.watch('public/assets/css/*.css',['css']);
 	gulp.watch(['server.js', 'public/*.js','public/controllers/*.js',
 		'public/routes/*.js','public/services/*.js'], ['js']);
+	gulp.watch('app/*/*.js');
 });
 
 gulp.task('nodemon', function() {
@@ -38,7 +39,7 @@ gulp.task('nodemon', function() {
 		script: 'server.js',
 		ext : 'js html'
 	})
-	.on('start', ['watch'])
+	.on('start', ['js','css','watch'])
 	.on('change', ['watch'])
 	.on('restart', function() {
 		console.log('Restarted!');

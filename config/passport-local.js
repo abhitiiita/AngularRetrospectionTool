@@ -3,10 +3,11 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../app/models/user');
+var jwt = require('jsonwebtoken');
 
 //Serialize and Unserialize user means putting user into session and 
 // take it out from session
-module.exports = function(passport){
+module.exports = function(passport, app){
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
@@ -33,7 +34,6 @@ module.exports = function(passport){
             User.findOne({'email' :  email}, function(err, user){
                 if(err)
                     return done(err);
-
                 if(user){
                     return done(null, false, 'That email is already exist');
                 } else {
@@ -44,7 +44,11 @@ module.exports = function(passport){
                     newUser.save(function(err){
                         if(err)
                             throw err;
-                        return done(null, newUser);
+                        // create a token
+                        var token = jwt.sign(user, app.get('tokenSecret'), {
+                            expiresInMinutes: 1440 // expires in 24 hours
+                        });
+                        return done(null, newUser, token);
                     });
                 }
             });
@@ -58,8 +62,6 @@ module.exports = function(passport){
         passwordField: 'password',
         passReqToCallback: true //allows us to pass back the entire request to the callback
         }, function(req, email, password, done){
-            console.log(email);
-            console.log(password);
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
         User.findOne({ 'email' :  email },'+password', function(err, user) {
@@ -73,7 +75,12 @@ module.exports = function(passport){
             if (!user.validPassword(password))
                 return done(null, false, 'Oops! Wrong password.'); // create the loginMessage and save it to session as flashdata
             // all is well, return successful user
-            return done(null, user);
+            // create a token
+            var token = jwt.sign(user, app.get('tokenSecret'), {
+              //  expiresInMinutes: 1440 // expires in 24 hours
+                  expiresInSeconds: 15
+            });
+            return done(null, user, token);
         });
     }));
 };

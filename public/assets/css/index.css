@@ -9,10 +9,19 @@
     -moz-text-rendering: optimizeLegibility;
     text-rendering: optimizeLegibility;
 }
+
 .navbar-nav > li > label {
     padding-top: 12px;
     padding-bottom: 8px;
     padding-right: 15px;
+}
+
+#todo-list li label {
+	margin-left: 0px !important;
+}
+
+#new-todo {
+	padding: 16px 16px 16px 16px !important;
 }
 
 .navbar-brand {

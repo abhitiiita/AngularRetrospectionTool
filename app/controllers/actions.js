@@ -72,7 +72,6 @@ module.exports.getActionsByTeam = function(req, res) {
 };
 */
 module.exports.getActionsByUser = function(req, res) {
-	console.log(req.params.userEmail);
 	Action.find({owner:req.params.userEmail}).exec(function(err, actions) {
 		if(err) {
 			return res.status(400).send({message:'Unable to fetch data try again'});
