@@ -21,7 +21,6 @@ angular.module('Retrospection').controller('Sprint',['$scope', '$state', 'Sprint
 
 			//call service to save this sprint
 			SprintService.createSprint($scope.sprint).success(function(data){
-				//console.log(data);
 				$state.go('addComments',{sprintId: data._id});
 			});	
 		};

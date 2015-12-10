@@ -15,13 +15,13 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 
 		$scope.login = function(isValid) {
 			if(isValid) {
-				AuthenticationService.login($scope.user).success(function(response) {
-					if(response.user) {
-						$scope.authentication.user = response.user;
-						AuthTokenService.setToken(response.token);
+				AuthenticationService.login($scope.user).then(function(response) {
+					if(response.data.user) {
+						$scope.authentication.user = response.data.user;
+						AuthTokenService.setToken(response.data.token);
 						$state.go('profile');
 					} else {
-						$scope.errorMessage = response.errorMsg;
+						$scope.errorMessage = response.data.errorMsg;
 					}
 				});
 			}
@@ -29,13 +29,13 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 
 		$scope.signup = function(isValid) {
 			if(isValid) {
-				AuthenticationService.signup($scope.user).success(function(response) {
-					if(response.user) {
-						$scope.authentication.user = response.user;
-						AuthTokenService.setToken(response.token);
+				AuthenticationService.signup($scope.user).then(function(response) {
+					if(response.data.user) {
+						$scope.authentication.user = response.data.user;
+						AuthTokenService.setToken(response.data.token);
 						$state.go('profile');
 					} else {
-						$scope.errorMessage = response.errorMsg;
+						$scope.errorMessage = response.data.errorMsg;
 					}			
 				});
 			}

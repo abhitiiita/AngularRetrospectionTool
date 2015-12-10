@@ -1,0 +1,53 @@
+<section>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3">
+			<label style="font-size:30px; font-weight:bold" class="grey-title">Current Team : {{authentication.user.team}}</label>
+		</div>
+	</div>
+	<div class="bg-info" style="padding:15px; margin-bottom:10px"><strong>Note: If your current team is "Other", you can't use the tool. You first need to change your team.</strong> <br/> Steps to change your team : <br/>1. You can select your team below in the left panel and submit.<br/>2. If you are unable to find your team in the left dropdown, you can create a new team first and then select it from the dropdown on the left.</div>
+	<div class="row">
+
+		<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+			<label class="grey-title">Choose your team</label>
+			<form name="teamForm" ng-submit="changeTeam(teamForm.$valid)" novalidate>
+			<div class="form-group" ng-class="{ 'has-error' : teamForm.team.$invalid && !teamForm.team.$pristine && teamForm.team.$touched }">
+            	<select class="form-control" name="team" ng-model="team.value" ng-options="team.teamName as team.teamName for team in teams" required>
+                	<option value="">Please select your team</option>
+            	</select>
+            	<p ng-show="teamForm.team.$invalid && !teamForm.team.$pristine && teamForm.team.$touched" class="help-block">You must select your team </p>
+        	</div>
+			<button type="submit" class="btn btn-primary" ng-disabled="teamForm.$invalid">Submit</button>
+        </form>
+		</div>
+
+		<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+			<div class="headerDivider"></div>
+				<label class="grey-title" style="
+    				font-size: 30px;
+    				margin-left: 48px;
+    				padding-bottom: 10px;
+    				padding-bottom: 10px;">OR</label>
+			<div class="headerDivider"></div>
+		</div>
+
+		<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+			<label class="grey-title">Create a new team</label>
+			<div class="row">
+				<div ng-show="createTeamSuccess">
+					Your team created successfully, please select it from dropdown on the left.
+				</div>
+				<div ng-show="createTeamError">
+					This team name already exists
+				</div>
+				<form name="newTeamForm" ng-submit="createTeam(newTeamForm.$valid)" novalidate>
+        			<div class="form-group" ng-class="{ 'has-error' : newTeamForm.teamName.$invalid && !newTeamForm.teamName.$pristine && newTeamForm.teamName.$touched }">
+            			<input type="text" name="teamName" class="form-control" ng-model="newTeam.teamName" required placeholder="Enter your team name">
+            			<p ng-show="newTeamForm.teamName.$invalid && !newTeamForm.teamName.$pristine && newTeamForm.teamName.$touched" class="help-block">Enter the name of your team</p>
+            		</div>
+            		<button type="submit" class="btn btn-primary" ng-disabled="newTeamForm.$invalid">Create Team</button>
+            	</form>
+        	</div>
+		</div>
+
+	</div>
+</section>

@@ -38,6 +38,8 @@ module.exports.create = function(req, res) {
 			if(err) {
 				return res.status(400).send({ message: 'Unable to add Comments try again'});
 			} else {
+				var socketio = req.app.get('socketio');
+				socketio.sockets.emit('team.added');
 				res.json({success:true, errorMsg:''});
 			}
 		});

@@ -15,14 +15,15 @@ module.exports = function(app, passport, transporter) {
 
 	app.get('/resetpassword/:resetToken', users.resetPasswordPhase2);
 
-	app.get('/users/me', users.requiresLogin, function(req, res) {
-		res.json(req.user);
-	});
+	app.get('/users/me', users.requiresLogin, users.getUserByID);
+
+	app.post('/users/password/:userId', users.updatePassword);
+
+	app.post('/users/team/:userId', users.updateTeam);
 
 	app.get('/users/:team', users.requiresLogin, users.getUsersByTeam);
 
 	app.route('/users/:userId')
-		.put(users.requiresLogin, users.updatePassword)
 		.delete(users.requiresLogin, users.delete);
 
 	//login page

@@ -28,6 +28,7 @@ module.exports = function(passport, app){
         passReqToCallback : true
     },
     function(req, email, password, done) {
+        console.log(email);
         //asynchronous
         //User.findOne wont fire unless data is sent back
         process.nextTick(function(){
@@ -45,8 +46,8 @@ module.exports = function(passport, app){
                         if(err)
                             throw err;
                         // create a token
-                        var token = jwt.sign(user, app.get('tokenSecret'), {
-                            expiresInMinutes: 1440 // expires in 24 hours
+                        var token = jwt.sign(newUser, app.get('tokenSecret'), {
+                            expiresInSeconds: 14400 // expires in 24 hours
                         });
                         return done(null, newUser, token);
                     });

@@ -12,6 +12,9 @@ angular.module('Retrospection').config(['$stateProvider',
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
 								return AuthenticationService.isLoggedIn();
 				}],
+				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
+					return AuthenticationService.checkTeam(isLoggedIn.team);
+				}],
 				sprintData: ['SprintService', 'isLoggedIn', function(SprintService, isLoggedIn) {
 						return SprintService.loadSprintsData(isLoggedIn.team);
 				}],
@@ -70,6 +73,9 @@ angular.module('Retrospection').config(['$stateProvider',
 			resolve: {
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
 								return AuthenticationService.isLoggedIn(); }],
+				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
+					return AuthenticationService.checkTeam(isLoggedIn.team);
+				}],
 				sprintData: function() { return [];}
 			},
 			templateUrl: 'views/sprint/create_sprint.html',
@@ -79,7 +85,11 @@ angular.module('Retrospection').config(['$stateProvider',
 			url: '/:sprintId/comments',
 			resolve: {
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
-								return AuthenticationService.isLoggedIn(); }]
+								return AuthenticationService.isLoggedIn(); 
+				}],
+				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
+					return AuthenticationService.checkTeam(isLoggedIn.team);
+				}]
 			},
 			templateUrl: 'views/sprint/add_comments.html'
 		}).
@@ -89,6 +99,9 @@ angular.module('Retrospection').config(['$stateProvider',
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
 								return AuthenticationService.isLoggedIn();
 							  }],
+				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
+					return AuthenticationService.checkTeam(isLoggedIn.team);
+				}],
 				sprintData: ['SprintService', 'isLoggedIn', function(SprintService, isLoggedIn) {
 						return SprintService.loadSprintsData(isLoggedIn.team);
 				}]
@@ -103,6 +116,9 @@ angular.module('Retrospection').config(['$stateProvider',
 					function(AuthenticationService) {
 						return AuthenticationService.isLoggedIn();
 					}],
+				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
+					return AuthenticationService.checkTeam(isLoggedIn.team);
+				}],
 				comments: ['$stateParams','CommentsService',
 					function($stateParams, CommentsService) {
 						return CommentsService.getRetroComments($stateParams.sprintId);
@@ -131,6 +147,19 @@ angular.module('Retrospection').config(['$stateProvider',
 					controller : 'ActionItem'
 				}
 			}
+		}).
+		state('teamChange', {
+			url: '/team',
+			resolve: {
+				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
+					return AuthenticationService.isLoggedIn();
+				}],
+				teams : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService) {
+					return AuthenticationService.getTeamsList();
+				}]
+			},
+			templateUrl: 'views/user/team_change.html',
+			controller: 'TeamManager'
 		}).
 		state('errorView', {
 			url: '/errorView',

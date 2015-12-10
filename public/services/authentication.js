@@ -31,6 +31,17 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 			return defer.promise;
 		};
 
+		authenticationFactory.checkTeam = function(team) {
+			var defer = $q.defer();
+			if(team == "Other") {
+				defer.reject(null);
+				$state.go('teamChange');
+			} else {
+				defer.resolve(true);
+			}
+			return defer.promise;
+		};
+
 		authenticationFactory.login = function(user) {
 			return $http.post('/auth/login', user);
 		};
@@ -61,11 +72,19 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 		};
 
 		authenticationFactory.updatePassword = function(password, userId) {
-			return $http.put('/users/'+userId, password);
+			return $http.post('/users/password/'+userId, password);
 		};
 
 		authenticationFactory.getTeamsList = function() {
 			return $http.get('/teams');
+		};
+
+		authenticationFactory.createTeam = function(newTeam) {
+			return $http.post('/teams', newTeam);
+		};
+
+		authenticationFactory.updateTeam = function(teamName, userId) {
+			return $http.post('/users/team/'+userId, teamName);
 		};
 
 		return authenticationFactory;

@@ -10,7 +10,6 @@ angular.module('Retrospection').controller('Profile', ['AuthenticationService', 
 
 		Socket.on('actionItem.added', function(){
 			ActionItemService.getActionItemsByUser($scope.authentication.user.email).success(function(data){
-				console.log("Data from ActionItemService"+data);
 				$scope.actionItemsList = data;
 			});
 		});
@@ -18,7 +17,6 @@ angular.module('Retrospection').controller('Profile', ['AuthenticationService', 
 		$scope.updateActionItems = function(actionItem) {
 			actionItem.status = !actionItem.status;
 			ActionItemService.updateActionItem(actionItem).success(function(data) {
-				console.log(data);
 				return;
 			});
 		};

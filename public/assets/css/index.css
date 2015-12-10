@@ -190,3 +190,8 @@
 .summaryUser-active-label {
 	background-color: #7DBCF1!important;
 }
+
+.headerDivider {
+     border-right:1px solid #999; 
+     height:80px; 
+}

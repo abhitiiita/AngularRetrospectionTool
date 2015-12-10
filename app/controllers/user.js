@@ -5,6 +5,17 @@ var ResetToken = require('../models/resetToken');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/database.js');
 
+module.exports.getUserByID = function(req, res) {
+	User.findById(req.params.userId).exec(function(err, user) {
+		if(err) {
+			return res.status(400).send({message:'Unable to fetch data try again'});
+		} else {
+			res.json(user);
+		}
+
+	});
+};
+
 module.exports.getUsersByTeam = function(req, res) {
 	User.find({team:req.params.team}).exec(function(err, users) {
 		if(err) {
@@ -20,7 +31,7 @@ module.exports.resetPasswordPhase1 = function(req, res, transporter) {
 	User.findOne({email:req.params.userEmail}).exec(function(err, user) {
 		if(err) return res.status(400).send({message:'Unable to fetch data try again'});
 		if(!user) {
-			return res.json({success:false, resetToken:null, 
+		    res.json({success:false, resetToken:null, 
 				errorMsg: 'Unable to find user by this emailid. Please check the email id provided'});
 		}
 		//generate hash token for resetting and save in db
@@ -70,8 +81,19 @@ module.exports.updatePassword = function(req, res) {
 		user.save(function(err) {
 			if(err) return res.status(400).send({message: 'Unable to update password to DB'});
 			res.json({success:true, user:user});
-		})
+		});
 	});
+};
+
+module.exports.updateTeam = function(req, res) {
+	User.findById(req.params.userId).exec(function(err, user) {
+		if(err) return res.status(400).send({message: 'Unable to fetch user from DB'});
+		user.team = req.body.value;
+		user.save(function(err) {
+			if(err) return res.status(400).send({message: 'Unable to update team to DB'});
+			res.json({success:true, user:user});
+		});
+	});	
 };
 
 module.exports.delete = function(req, res) {
@@ -99,7 +121,7 @@ module.exports.requiresLogin = function(req, res, next) {
 				message: 'Failed to authenticate token'
 			});
 		} else {
-			req.user = decoded;
+			req.params.userId = decoded._id;
 			next();
 		}
 	});
