@@ -47,7 +47,7 @@ module.exports = function(passport, app){
                             throw err;
                         // create a token
                         var token = jwt.sign(newUser, app.get('tokenSecret'), {
-                            expiresInSeconds: 14400 // expires in 24 hours
+                            expiresIn: 86400 // expires in 24 hours
                         });
                         return done(null, newUser, token);
                     });
@@ -78,8 +78,7 @@ module.exports = function(passport, app){
             // all is well, return successful user
             // create a token
             var token = jwt.sign(user, app.get('tokenSecret'), {
-              //  expiresInMinutes: 1440 // expires in 24 hours
-                  expiresInSeconds: 15
+                    expiresIn: 86400 // expires in 24 hours
             });
             return done(null, user, token);
         });
