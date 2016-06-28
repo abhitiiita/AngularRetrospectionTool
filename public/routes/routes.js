@@ -1,16 +1,16 @@
-angular.module('Retrospection').config(['$stateProvider',
-	function($stateProvider) {
+angular.module('Retrospection').config(['$stateProvider', '$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
 		'use strict';
 		$stateProvider.
-		state('home', {
-			url:'/',
-			templateUrl: 'views/home.html'
-		}).
+		// state('home', {
+		// 	url:'/',
+		// 	templateUrl: 'views/home.html'
+		// }).
 		state('profile', {
 			url: '/main',
 			resolve: {
 				isLoggedIn : ['AuthenticationService', function(AuthenticationService) {
-								return AuthenticationService.isLoggedIn();
+					return AuthenticationService.isLoggedIn();
 				}],
 				checkTeam : ['AuthenticationService', 'isLoggedIn', function(AuthenticationService, isLoggedIn) {
 					return AuthenticationService.checkTeam(isLoggedIn.team);
@@ -165,6 +165,13 @@ angular.module('Retrospection').config(['$stateProvider',
 			url: '/errorView',
 			templateUrl: 'views/error_view.html'
 		});
-	}
 
+		$urlRouterProvider.otherwise('/signin');
+	}
 ]);
+
+angular.module('Retrospection').run(function($state, $rootScope) {
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+	  $state.go('signin');
+  });
+});

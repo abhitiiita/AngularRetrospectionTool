@@ -15,7 +15,6 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 			//check for token if token exist then fetch the user
 			if(!AuthTokenService.getToken()) {
 				defer.reject(null);
-				$state.go('signin');
 			} else {
 				//token exist but no user info, so fetch from server
 				$http.get('/users/me').success(function(user) {
@@ -24,7 +23,6 @@ angular.module('Retrospection').factory('AuthenticationService', ['$cookies', '$
 						defer.resolve(authenticationFactory.user);
 					} else {
 						defer.reject(null);
-						$state.go('signin');
 					}
 				});
 			}

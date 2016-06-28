@@ -6,7 +6,9 @@ angular.module('Retrospection').controller('Authentication',['$scope','Authentic
 		$scope.authentication = AuthenticationService;
 		$scope.teams = teams.data;
 		
-		if ($scope.authentication.user) $state.go('profile');
+		if ($scope.authentication.user) {
+			$state.go('profile');
+		}
 
 		$rootScope.$on('unauthorized', function() {
         	AuthenticationService.user = null;
