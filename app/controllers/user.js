@@ -52,8 +52,9 @@ module.exports.resetPasswordPhase1 = function(req, res, transporter) {
 				}, function(error, response) {
 					if(error) {
 						res.json({success:false, resetToken: '', errorMsg:error});
+					} else {
+					        res.json({success:true, resetToken:resetToken, errorMsg:''});
 					}
-					res.json({success:true, resetToken:resetToken, errorMsg:''});
 				});
 				
 			}
