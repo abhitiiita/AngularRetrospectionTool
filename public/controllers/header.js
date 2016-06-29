@@ -8,7 +8,7 @@ angular.module('Retrospection').controller('Header', ['$scope', 'AuthenticationS
 				$scope.authentication.user = null;
 				//$cookies.putObject('user', null);
 				AuthTokenService.setToken();
-				$state.go('home');
+				$state.go('signin');
 			});
 		};
 	}
