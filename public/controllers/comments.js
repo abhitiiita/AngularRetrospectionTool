@@ -40,6 +40,8 @@ angular.module('Retrospection').controller('Comments',['$scope', '$stateParams',
 		};
 
 		$scope.submitComments = function(){
+			$scope.addToPosList();
+			$scope.addToNegList();
 			if($scope.listPosComments.length === 0 || $scope.listNegComments.length ===0){
 				$scope.isError = true;
 				$scope.errorMessage = "Please enter atleast one comment in both Positive and Negative section";
